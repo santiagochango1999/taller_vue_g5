@@ -4,14 +4,7 @@
       <div>
         <img id="imagen2" src="../assets/imglogo2.jpg" alt="no hay" />
       </div>
-      <div class="containerOpcion">
-        <ul>
-          <li>INICIO</li>
-          <li>QUIENES SOMOS</li>
-          <li>DOCUMENTOS</li>
-          <li>INFORMACION</li>
-        </ul>
-      </div>
+      <NavbarInicio/>
       <div class="containerButton">
         <button><router-link to="/seccion">INGRESAR </router-link></button>
         <button><router-link to="/registrar">REGISTRAR </router-link></button>
@@ -26,7 +19,13 @@
 </template>
 
 <script>
-export default {};
+import NavbarInicio from '../components/NavbarInicio.vue';
+// Importa el componente Navbar
+export default {
+  components: {
+    NavbarInicio // Registra el componente Navbar
+  }
+};
 </script>
 
 <style scoped>
@@ -134,5 +133,9 @@ button:hover {
   padding-top: 30px;
   padding-bottom: 50px;
   border-bottom-right-radius: 180px;
+}
+a{
+    text-decoration: none;
+
 }
 </style>

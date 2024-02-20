@@ -1,18 +1,15 @@
 <template>
-  <PaginaPrincipal />
-  <router-view />
-  <!-- <PaginaRegistro /> -->
+<!--   <PaginaPrincipal />
+ -->  <router-view />
 </template>
 
 <script>
 import PaginaPrincipal from "./page/PaginaPrincipal.vue";
-import PaginaRegistro from "./page/PaginaRegistro.vue";
 
 export default {
   name: "App",
   components: {
     PaginaPrincipal,
-    PaginaRegistro,
   },
 };
 </script>

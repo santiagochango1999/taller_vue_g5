@@ -5,6 +5,8 @@ const insertar = async (body) => {
     console.log(data)
 }
 
+
+
 export const insertarfachada = async (body) => {
     await insertar(body);
 }
