@@ -23,6 +23,7 @@
         <p type="Fecha Nacimiento:">
           <input v-model="fechaNacimiento" type="date" />
         </p>
+        <p type="Contraseña"><input v-model="contraseña" type="text" /></p>
         <button @click="insertar">Registrarse</button>
         <!-- Mensaje de registro exitoso -->
         <p v-if="registroExitoso" class="registro-exitoso">
@@ -34,7 +35,10 @@
 </template>
 
 <script>
-import { insertarfachada } from "../helpers/clientePaciente.js";
+import {
+  insertarfachada,
+  verificarCedulaExistentefachada,
+} from "../helpers/clientePaciente.js";
 export default {
   data() {
     return {
@@ -45,7 +49,7 @@ export default {
       telefono: null,
       rol: null,
       fechaNacimiento: null,
-      registroExitoso: false,
+      contraseña: null,
     };
   },
   methods: {
@@ -57,27 +61,49 @@ export default {
         this.direccion &&
         this.telefono &&
         this.rol !== "" &&
-        this.fechaNacimiento
+        this.fechaNacimiento &&
+        this.contraseña
       ) {
-        if (this.cedula.length === 10) {
-          const fechaFormateada = new Date(this.fechaNacimiento).toISOString();
-
-          console.log(fechaFormateada);
-          const pacBody = {
-            nombre: this.nombre,
-            apellido: this.apellido,
-            cedula: this.cedula,
-            direccion: this.direccion,
-            telefono: this.telefono,
-            rol: this.rol,
-            fechaNacimiento: fechaFormateada,
-          };
-          await insertarfachada(pacBody);
-          // Registro exitoso
-          this.registroExitoso = true;
-          this.resetearDatos();
+        if (this.cedula.length === 10 && this.telefono.length === 10) {
+          if (this.contraseña.length >= 6) {
+            const fechaFormateada = new Date(
+              this.fechaNacimiento
+            ).toISOString();
+            const pacBody = {
+              nombre: this.nombre,
+              apellido: this.apellido,
+              cedula: this.cedula,
+              direccion: this.direccion,
+              telefono: this.telefono,
+              rol: this.rol,
+              fechaNacimiento: fechaFormateada,
+              contraseña: this.contraseña,
+            };
+            const cedulaExistente = await verificarCedulaExistentefachada(
+              this.cedula
+            );
+            console.log("tercera fase" + cedulaExistente);
+            if (cedulaExistente) {
+              alert(
+                "La cédula ya está registrada. No se puede volver a registrar."
+              );
+            } else {
+              await insertarfachada(pacBody);
+              // Registro exitoso
+              alert(
+                "SE A REGISTRADO CORRECTAMENTE"
+              );
+              this.resetearDatos();
+            }
+          } else {
+            alert(
+              "La cédula o el telefono debe tener exactamente 10 dígitos verificar."
+            );
+          }
         } else {
-          alert("La cédula debe tener exactamente 10 dígitos.");
+          alert(
+            "La cédula o el telefono debe tener exactamente 10 dígitos verificar."
+          );
         }
       } else {
         alert("Por favor, complete todos los campos antes de registrarse.");
@@ -92,10 +118,10 @@ export default {
       this.telefono = null;
       this.rol = null;
       this.fechaNacimiento = null;
+      this.contraseña = null;
 
       // Ocultar el mensaje de registro exitoso
-      //me va a servir para modificar 
-      this.registroExitoso = false;
+      //me va a servir para modificar
     },
   },
 };
@@ -151,9 +177,8 @@ h1 {
 }
 
 h2 {
-  margin-left: 90px;
-  padding-bottom: 10px;
   width: 200px;
+  margin: 10px 0px;
   font-size: 35px;
   position: relative;
 }

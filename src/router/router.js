@@ -17,19 +17,11 @@ const routes = [
         component: () => import('../page/NoFoundPage')
     },
     {
-        path: '/estudiantes',
-        component: () => import('../page/PaginaEstudiante')
+        path: '/pacientes/:cedula',
+        component: () => import('../page/PaginaPaciente')
     }
     ,
-    {
-        path: '/HistorialClinico',
-        component: () => import('../page/PaginaHistorialClinico')
-    }
-    ,
-    {
-        path: '/ServicioMedicos',
-        component: () => import('../page/PaginaServicioMedico')
-    },
+
     {
         path: '/departamentos',
         component: () => import('../page/PaginaDepartamento')
@@ -37,6 +29,14 @@ const routes = [
     {
         path: '/factura',
         component: () => import('../page/PaginaFactura')
+    },
+    {
+        path: '/ServicioMedicos',
+        component: () => import('../page/PaginServiciosMedicos')
+    },
+    {
+        path: '/HistorialClinico',
+        component: () => import('../page/paginaHistorial.vue')
     },
 
 ]

@@ -5,7 +5,7 @@
     </div>
     <div class="container3">
       <h1>Bienvenido</h1>
-      <h1>nombre y apellido</h1>
+      <h1>{{datos.nombre}} {{datos.apellido}}</h1>
 
       <h2>Esperamos que tengas una exelente experiencia</h2>
     </div>
@@ -13,7 +13,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    datos: {
+      type: Object,
+      require: false,
+    },
+  },
+};
 </script>
 
 <style scoped>

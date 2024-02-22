@@ -1,27 +1,62 @@
 <template>
-<div class="body">
- <div class="container">
-        <header>
-            <h1>Bienvenidos</h1>
-        </header>
+  <div class="body">
+    <div class="container">
+      <header>
+        <h1>Bienvenidos</h1>
+      </header>
 
-        <form class="form" >
-            <img src="../assets/imgHospital1.jpg" alt="">
-            <h2>LOGIN</h2>
-            <p type="Cedula:"> <input type="text"> </p>
-            <p type="Contraseña:"><input type="text"></p>
-            <button>Ingresar </button>
-            <button><router-link to="/registrar">Registrarse </router-link></button>
-        </form>
-
+      <form class="form">
+        <img src="../assets/imgHospital1.jpg" alt="" />
+        <h2>LOGIN</h2>
+        <p type="Cedula:">
+          <input v-model="Cedula" type="text" placeholder="Ingrese la cedula" />
+        </p>
+        <p type="Contraseña:">
+          <input
+            v-model="Contraseña"
+            type="text"
+            placeholder="Ingrese la contraseña"
+          />
+        </p>
+        <button @click="iniciar">Iniciar</button>
+        <button><router-link to="/registrar">Registrarse </router-link></button>
+      </form>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
+import {
+  buscarFachada,
+  verificarCedulaExistentefachada,
+} from "../helpers/clientePaciente.js";
 export default {
-
-}
+  data() {
+    return {
+      Cedula: null,
+      Contraseña: null,
+    };
+  },
+  methods: {
+    async iniciar() {
+      if (this.Cedula && this.Contraseña) {
+        const verifica = await verificarCedulaExistentefachada(this.Cedula);
+        if (verifica) {
+          const data = await buscarFachada(this.Cedula);
+          if (this.Contraseña === data.contraseña) {
+            this.$router.push(`/pacientes/${this.Cedula}`);
+          } else {
+            alert("la contraseña es INCORRECTA");
+          }
+        } else {
+          alert(`No se encontro un usuario con esta cedula:${this.Cedula}`);
+        }
+      } else {
+        alert("Ingrese datos de cedula");
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -112,5 +147,12 @@ button {
   position: relative;
   border-radius: 20px;
   background-color: #ffffff;
+}
+a {
+  text-decoration: none;
+  color: #000000;
+}
+button:hover {
+  background: #d2d1d1;
 }
 </style>

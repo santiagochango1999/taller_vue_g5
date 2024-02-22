@@ -1,40 +1,46 @@
 <template>
   <div class="container">
-    <cabecera />
-    <div class="consulta">
-      <button @click="consultar">Consultar</button>
-      <input v-model="name" type="text" />
-    </div>
+    <cabezeraVue />
 
+    <div class="consulta">
+      <button @click="consultar">Historial Completo</button>
+      <br />
+      <button @click="consultarCedula">Historial Paciente</button>
+      <input v-model="cedula" type="text" />
+    </div>
     <div class="tablah">
       <table>
         <tr>
           <td>Id</td>
-          <td>Especialidad</td>
-          <td>Telefono</td>
-          <td>Doctores</td>
+
+          <td>Fecha</td>
+          <td>Diagnostico</td>
+          <td>Observaciones</td>
+          <td>Tratamiento</td>
         </tr>
 
         <tr v-for="dato in datos" :key="dato.id">
           <td>{{ dato.id }}</td>
-          <td>{{ dato.nombre }}</td>
-          <td>{{ dato.telefono }}</td>
+          <td>{{ dato.fecha }}</td>
+          <td>{{ dato.diagnostico }}</td>
+          <td>{{ dato.observaciones }}</td>
+          <td>{{ dato.tratamiento }}</td>
         </tr>
-
       </table>
     </div>
   </div>
 </template>
 
 <script>
-import cabecera from "../components/cabezera.vue";
+import cabezeraVue from "@/components/cabezera.vue";
 import {
-  consultarFachada,
-  consultarUnoFachada,
-} from "../helpers/clienteDepartamento.js";
+  consultarHTodoFachada,
+  consultarCedulaFachada,
+} from "../helpers/clienteHistorial";
+
 export default {
   components: {
-    cabecera,
+    cabezeraVue,
   },
   data() {
     return {
@@ -44,13 +50,17 @@ export default {
   methods: {
     async consultar() {
       console.log("alo");
-      this.datos = await consultarFachada();
+      this.datos = await consultarHTodoFachada();
+    },
+    async consultarCedula() {
+      console.log("aloid");
+      console.log(this.cedula);
+      this.datos = await consultarCedulaFachada(this.cedula);
     },
   },
 };
 </script>
-
-<style scoped >
+<style scoped>
 .container {
   background-color: rgb(56, 119, 160);
   height: 100vh;
@@ -83,7 +93,12 @@ table {
   height: 100%;
   table-layout: fixed;
 }
-
+.tablac {
+  height: 200px;
+  overflow-x: auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
 th {
   padding: 20px 15px;
   text-align: left;

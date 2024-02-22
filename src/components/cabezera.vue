@@ -2,7 +2,7 @@
   <div class="containercabezera">
     <img src="../assets/imglogo2.jpg" alt="no hay" />
     <div class="container2">
-      <router-link to="/estudiantes">Inicio</router-link>
+      <router-link :to="`/pacientes/${cedula}`">Inicio</router-link>
       <router-link to="/HistorialClinico">Historial Clinico</router-link>
       <router-link to="/ServicioMedicos">Servicios Medicos</router-link>
       <router-link to="/departamentos">Departamentos</router-link>
@@ -11,7 +11,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props:{
+    cedula:{
+      require:false,
+    }
+  }
+};
 </script>
 
 <style scoped>

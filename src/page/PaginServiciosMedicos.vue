@@ -1,40 +1,40 @@
 <template>
   <div class="container">
-    <cabecera />
-    <div class="consulta">
-      <button @click="consultar">Consultar</button>
-      <input v-model="name" type="text" />
-    </div>
+    <cabezeraVue />
 
+    <div class="consulta">
+      <button @click="consultar">Todos los servicios</button>
+      <!-- <input v-model="id" type="text"> -->
+    </div>
     <div class="tablah">
-      <table>
+      <table v-if="datos != null">
         <tr>
           <td>Id</td>
-          <td>Especialidad</td>
-          <td>Telefono</td>
-          <td>Doctores</td>
+          <td>Nombre</td>
+          <td>Costo</td>
+          <td>Selección</td>
         </tr>
 
         <tr v-for="dato in datos" :key="dato.id">
           <td>{{ dato.id }}</td>
           <td>{{ dato.nombre }}</td>
-          <td>{{ dato.telefono }}</td>
+          <td>{{ dato.costo }}</td>
+          <td><button>Agendar</button></td>
         </tr>
-
       </table>
     </div>
   </div>
 </template>
 
 <script>
-import cabecera from "../components/cabezera.vue";
+import cabezeraVue from "@/components/cabezera.vue";
 import {
-  consultarFachada,
-  consultarUnoFachada,
-} from "../helpers/clienteDepartamento.js";
+  consultarTodoFachada,
+  consultarIdFachada,
+} from "../helpers/clienteServiciosMedicos";
 export default {
   components: {
-    cabecera,
+    cabezeraVue,
   },
   data() {
     return {
@@ -44,13 +44,17 @@ export default {
   methods: {
     async consultar() {
       console.log("alo");
-      this.datos = await consultarFachada();
+      this.datos = await consultarTodoFachada();
+    },
+    async consultarId() {
+      console.log("aloid");
+      console.log(this.id);
+      this.datos = await consultarIdFachada(this.id);
     },
   },
 };
 </script>
-
-<style scoped >
+<style >
 .container {
   background-color: rgb(56, 119, 160);
   height: 100vh;
@@ -75,7 +79,7 @@ export default {
   margin-bottom: 15px;
 }
 table {
-  margin: 0px 20px;
+     margin: 0px 20px;
   background: -webkit-linear-gradient(left, #25c481, rgb(56, 119, 160));
   background: linear-gradient(to right, #25c481, rgb(56, 119, 160));
   text-align: left;
@@ -83,7 +87,12 @@ table {
   height: 100%;
   table-layout: fixed;
 }
-
+.tablac {
+  height: 200px;
+  overflow-x: auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
 th {
   padding: 20px 15px;
   text-align: left;
