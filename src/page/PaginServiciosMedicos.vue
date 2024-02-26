@@ -3,8 +3,8 @@
     <cabezeraVue />
 
     <div class="consulta">
-      <button @click="consultar">Todos los servicios</button>
-      <!-- <input v-model="id" type="text"> -->
+<!--       <button @click="consultar">Todos los servicios</button>
+ -->      <!-- <input v-model="id" type="text"> -->
     </div>
     <div class="tablah">
       <table v-if="datos != null">
@@ -52,6 +52,9 @@ export default {
       this.datos = await consultarIdFachada(this.id);
     },
   },
+  created(){
+    this.consultar();
+  }
 };
 </script>
 <style >

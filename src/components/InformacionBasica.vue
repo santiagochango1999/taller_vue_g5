@@ -79,6 +79,5 @@ img {
   border-radius: 5px;
   width: 1004px;
   height: 450px;
-  position: fixed;
 }
 </style>

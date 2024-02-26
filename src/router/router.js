@@ -34,11 +34,6 @@ const routes = [
         path: '/ServicioMedicos',
         component: () => import('../page/PaginServiciosMedicos')
     },
-    {
-        path: '/HistorialClinico',
-        component: () => import('../page/paginaHistorial.vue')
-    },
-
 ]
 
 const router = createRouter({ history: createWebHashHistory(), routes })

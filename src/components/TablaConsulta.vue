@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div class="tablah">
+      <h1>Lista de Consultas</h1>
       <table>
         <tr>
           <td>fechaConsulta</td>
@@ -41,6 +42,14 @@ table {
   width: 100%;
   height: 100%;
   table-layout: fixed;
+}
+.tablah{
+  padding: 5px;
+  padding-right: 60px;
+  margin: 20px;
+  border-radius: 10px;
+  background-color: #007c76;
+  box-shadow: 15px 10px 5px 5px #00000033;
 }
 
 th {

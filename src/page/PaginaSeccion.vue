@@ -1,9 +1,9 @@
 <template>
   <div class="body">
     <div class="container">
-      <header>
+      <div>
         <h1>Bienvenidos</h1>
-      </header>
+      </div>
 
       <form class="form">
         <img src="../assets/imgHospital1.jpg" alt="" />
@@ -18,7 +18,10 @@
             placeholder="Ingrese la contraseña"
           />
         </p>
-        <button @click="iniciar">Iniciar</button>
+        <div class="buttoncontainer">
+          <button id="button1" @click="iniciarPaciente">Ingreso Paciente</button>
+<!--           <button id="button2" @click="iniciarMedico">Ingreso Medico</button>
+ -->        </div>
         <button><router-link to="/registrar">Registrarse </router-link></button>
       </form>
     </div>
@@ -30,6 +33,10 @@ import {
   buscarFachada,
   verificarCedulaExistentefachada,
 } from "../helpers/clientePaciente.js";
+import {
+  buscarMFachada,
+  verificarCedulaExistenteMfachada,
+} from "../helpers/clienteMedico.js";
 export default {
   data() {
     return {
@@ -38,7 +45,7 @@ export default {
     };
   },
   methods: {
-    async iniciar() {
+    async iniciarPaciente() {
       if (this.Cedula && this.Contraseña) {
         const verifica = await verificarCedulaExistentefachada(this.Cedula);
         if (verifica) {
@@ -49,12 +56,29 @@ export default {
             alert("la contraseña es INCORRECTA");
           }
         } else {
-          alert(`No se encontro un usuario con esta cedula:${this.Cedula}`);
+          alert(`No se encontro un Paciente con esta cedula:${this.Cedula}`);
         }
       } else {
-        alert("Ingrese datos de cedula");
+        alert("Ingrese datos en la cedula o la contraseña del paciente");
       }
     },
+    /* async iniciarMedico() {
+      if (this.Cedula && this.Contraseña) {
+        const verifica = await verificarCedulaExistenteMfachada(this.Cedula);
+        if (verifica) {
+          const data = await buscarMFachada(this.Cedula);
+          if (this.Contraseña === data.contraseña) {
+            this.$router.push(`/medicos/${this.Cedula}`);
+          } else {
+            alert("la contraseña es INCORRECTA");
+          }
+        } else {
+          alert(`No se encontro un Medico con esta cedula:${this.Cedula}`);
+        }
+      } else {
+        alert("Ingrese datos en la cedula o la contraseña del medico");
+      }
+    }, */
   },
 };
 </script>
@@ -76,6 +100,16 @@ export default {
   display: grid;
   justify-content: center;
   align-items: center;
+}
+.buttoncontainer {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+}
+#button1 {
+  right: 80px;
+}
+#button2 {
+  right: 80px;
 }
 
 .form {
@@ -141,7 +175,7 @@ input:focus {
 
 button {
   width: 125px;
-  height: 40px;
+  height: 50px;
   margin: 10px 120px;
   font-size: 20px;
   position: relative;
