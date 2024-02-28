@@ -8,6 +8,8 @@
           <td>motivo</td>
           <td>Nombre Medico</td>
           <td>Nombre Servicio</td>
+          <td>Eliminar Consulta</td>
+          <td>Ver factura</td>
         </tr>
 
         <tr v-for="dato in datos" :key="dato.id">
@@ -15,6 +17,8 @@
           <td>{{ dato.motivo }}</td>
           <td>{{ dato.nombreMedico }}</td>
           <td>{{ dato.nombreServicio }}</td>
+          <td><button @click="eliminarConsulta(dato.id)">Eliminar</button></td>
+          <td><button @click="factura(dato.id)">Factura</button></td>
         </tr>
       </table>
     </div>
@@ -22,6 +26,7 @@
 </template>
 
 <script>
+import { eliminarFachadaC } from "../helpers/clienteConsulta";
 export default {
   props: {
     datos: {
@@ -29,7 +34,16 @@ export default {
       require: false,
     },
   },
-
+  methods: {
+    async eliminarConsulta(id) {
+      // Lógica para eliminar la consulta con el ID correspondiente
+      await eliminarFachadaC(id);
+      location.reload();
+    },
+    factura(id){
+      console.log("el id de la consulta es: "+id);
+    }
+  },
 };
 </script>
 
@@ -43,7 +57,7 @@ table {
   height: 100%;
   table-layout: fixed;
 }
-.tablah{
+.tablah {
   padding: 5px;
   padding-right: 60px;
   margin: 20px;

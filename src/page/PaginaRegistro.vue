@@ -15,9 +15,9 @@
         <p type="Telefono:"><input v-model="telefono" type="text" /></p>
         <p type="Rol:">
           <select v-model="rol">
-            <option value="estudiante">Estudiante</option>
-            <option value="administrativo">Administrativo</option>
-            <option value="externo">Externo</option>
+            <option value="Estudiante">Estudiante</option>
+            <option value="Administrativo">Administrativo</option>
+            <option value="Externo">Externo</option>
           </select>
         </p>
         <p type="Fecha Nacimiento:">

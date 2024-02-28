@@ -19,9 +19,11 @@ const routes = [
     {
         path: '/pacientes/:cedula',
         component: () => import('../page/PaginaPaciente')
-    }
-    ,
-
+    },
+    {
+        path: '/HistorialClinico',
+        component: () => import('../page/paginaHistorial')
+    },
     {
         path: '/departamentos',
         component: () => import('../page/PaginaDepartamento')

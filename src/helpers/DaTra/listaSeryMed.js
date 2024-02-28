@@ -4,7 +4,7 @@ import "regenerator-runtime/runtime";
 const convertirlista = (lista) => {
     const datos = [];
     lista.forEach((elemento)=>{
-        const aux = [elemento.id, elemento.nombre];
+        const aux = elemento.nombre+" "+elemento.apellido;
         datos.push(aux);
     });
     return datos;

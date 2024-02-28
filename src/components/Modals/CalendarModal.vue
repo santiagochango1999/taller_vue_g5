@@ -26,18 +26,17 @@
               </option>
             </select>
           </p>
-          <p type="Doctor:">
+          <!-- <p type="Doctor:">
             <select v-model="form.medico">
               <option v-for="dato in form1.medico" :key="dato.id">
                 {{ dato.nombre }}
               </option>
             </select>
-          </p>
+          </p> -->
         </form>
       </div>
       <div class="containeropciones">
         <button @click="closeModal">atrás</button>
-        <button>Eliminar</button>
         <button @click="store(form)">Guardar</button>
       </div>
     </div>
@@ -56,12 +55,7 @@ export default {
       default: () => {},
     },
   },
-  data() {
-    return {
-      idservicio: null,
-      idmedico: null,
-    };
-  },
+  
   methods: {
     //maneja poder salir de la pantalla evento
     closeModal() {
@@ -69,8 +63,12 @@ export default {
     },
     store(form) {
       //va a manejar el guardar
-      if (this.form.motivo === "") {
-        alert("Ingrese el motivo para continuar");
+      if (
+        this.form.motivo === "" ||
+        this.form.servicio === "" ||
+        this.form.medico === ""
+      ) {
+        alert("Ingrese los datos de la consulta para continuar");
       } else {
         this.capturaid(this.form1.servicio);
         this.capturaidm(this.form1.medico);
@@ -80,14 +78,14 @@ export default {
     capturaid(lista) {
       lista.forEach((element) => {
         if (element.nombre === this.form.servicio) {
-          this.form.servicio = element.id;
+          this.form.servicio = element;
         }
       });
     },
     capturaidm(lista) {
       lista.forEach((element) => {
         if (element.nombre === this.form.medico) {
-          this.form.medico = element.id;
+          this.form.medico = element;
         }
       });
     },

@@ -5,7 +5,10 @@
     </div>
     <div class="container3">
       <h1>Bienvenido</h1>
-      <h1>{{datos.nombre}} {{datos.apellido}}</h1>
+      <div>
+        <h1>{{ datos.rol }}</h1>
+        <h1>{{ datos.nombre }} {{ datos.apellido }}</h1>
+      </div>
 
       <h2>Esperamos que tengas una exelente experiencia</h2>
     </div>
@@ -43,7 +46,7 @@ export default {
 }
 .container3 {
   display: grid;
-  grid-template-rows: 25% 25% 50%;
+  grid-template-rows: 25% 50% 25%;
   background: rgb(37, 37, 37);
   color: white;
   align-items: center;

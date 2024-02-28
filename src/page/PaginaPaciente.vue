@@ -3,7 +3,20 @@
     <cabecera :cedula="cedulaE" />
     <InformacionBasica :datos="datoPaciente" />
     <TablaConsultaVue :datos="datoConsulta" />
-    <calendarioVue @dateclick="dateinfo" v-if="!showModal" />
+    <div class="Seleccionar">
+      <p type="Filtrar por Medico:">
+        <select v-model="NewEvent.medico">
+          <option v-for="dato in NewEvent1.medico" :key="dato.id">
+            {{ dato.nombre }}
+          </option>
+        </select>
+      </p>
+    </div>
+    <calendarioVue
+      :activador="NewEvent.medico"
+      @dateclick="dateinfo"
+      v-if="!showModal"
+    />
     <modals
       v-if="showModal"
       :form="NewEvent"
@@ -22,11 +35,13 @@ import calendarioVue from "@/components/calendario.vue";
 import modals from "../components/Modals/CalendarModal.vue";
 
 import { buscarFachada } from "../helpers/clientePaciente";
-import { consultarFachadaC } from "../helpers/clienteConsulta";
+import {
+  consultarFachadaC,
+  guardarFachadaC,
+  verificarFachadaC,
+} from "../helpers/clienteConsulta";
 import { buscartodoFachadaM } from "../helpers/clienteMedico";
 import { consultarTodoFachada } from "../helpers/clienteServiciosMedicos";
-
-
 
 export default {
   components: {
@@ -38,6 +53,7 @@ export default {
   },
   data() {
     return {
+      activador: null,
       cedulaE: this.$route.params.id,
       datoConsulta: {
         type: Object,
@@ -100,12 +116,32 @@ export default {
       let dateAndTime = obj.dateStr.split("T");
       this.NewEvent.date_at = dateAndTime[0];
       this.NewEvent.hour = dateAndTime[1].substr(0, 8);
-      this.NewEvent.user_id = this.datoPaciente.id;
+      this.NewEvent.user_id = this.datoPaciente;
       return;
     },
-    saveApp(param) {
+    async saveApp(param) {
       //para guardar datos
-      console.log(param);
+      const body = {
+        fechaConsulta: param.date_at + "T" + param.hour + ".000Z",
+        motivo: param.motivo,
+        paciente: param.user_id,
+        medico: param.medico,
+        factura: null,
+        serviciosMedicos: param.servicio,
+      };
+      console.log(body);
+
+      const verificar = await verificarFachadaC(
+        body.fechaConsulta.substring(0, 19),
+        body.medico.id
+      );
+      if (verificar === true) {
+        alert("Ya esta ocupado el turno");
+      } else {
+        await guardarFachadaC(body); //ingreso los datos a la base de datos de la consulta
+        location.reload();
+        alert("Se ha ingresado correctamente");
+      }
     },
   },
   created() {
@@ -128,5 +164,25 @@ export default {
   top: 0px;
   left: 0px;
   background-color: rgb(56, 119, 160);
+}
+p:before {
+  content: attr(type);
+  display: flex;
+  margin: 5px 2px;
+  font-size: 25px;
+  color: #000000;
+}
+.Seleccionar {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 15%;
+  margin-left: 35%;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+}
+select {
+  width: 100%;
 }
 </style>
