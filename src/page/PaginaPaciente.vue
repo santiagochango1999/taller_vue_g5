@@ -2,7 +2,7 @@
   <div class="body">
     <cabecera :cedula="cedulaE" />
     <InformacionBasica :datos="datoPaciente" />
-    <TablaConsultaVue :datos="datoConsulta" />
+    <TablaConsultaVue :datos="datoConsulta" @dateclick="dateinfo1" />
     <div class="Seleccionar">
       <p type="Filtrar por Medico:">
         <select v-model="NewEvent.medico">
@@ -15,7 +15,8 @@
     <calendarioVue
       :activador="NewEvent.medico"
       @dateclick="dateinfo"
-      v-if="!showModal"
+      v-if="!showModal && !showModalFactura "
+
     />
     <modals
       v-if="showModal"
@@ -24,6 +25,7 @@
       @closeModal="close"
       @saveApp="saveApp"
     />
+    <facturamodals v-if="showModalFactura" @closeModal="close" :form="facturadatos"/>
   </div>
 </template>
 
@@ -33,6 +35,7 @@ import cabecera from "../components/cabezera.vue";
 import TablaConsultaVue from "@/components/TablaConsulta.vue";
 import calendarioVue from "@/components/calendario.vue";
 import modals from "../components/Modals/CalendarModal.vue";
+import facturamodals from "../components/Modals/FacturaModal.vue";
 
 import { buscarFachada } from "../helpers/clientePaciente";
 import {
@@ -50,9 +53,11 @@ export default {
     calendarioVue,
     TablaConsultaVue,
     modals,
+    facturamodals,
   },
   data() {
     return {
+      facturadatos:null,
       activador: null,
       cedulaE: this.$route.params.id,
       datoConsulta: {
@@ -63,6 +68,8 @@ export default {
         requerid: false,
       },
       showModal: false,
+      showModalFactura: false,
+
       NewEvent: {
         motivo: "",
         date_at: "",
@@ -107,9 +114,17 @@ export default {
       this.showModal = true;
       this.setModalOpen(arg);
     },
+    dateinfo1(dato) {
+      console.log(dato);
+      this.facturadatos=dato;
+      this.showModalFactura = true;
+      /*       this.setModalOpen(arg);
+       */
+    },
     close() {
       //controlamos el atras
       this.showModal = false;
+      this.showModalFactura = false;
     },
     setModalOpen(obj) {
       //controlamos los datos fecha que aparescan directo

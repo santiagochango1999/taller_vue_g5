@@ -8,7 +8,7 @@ const buscartodos = async () => {
 export const buscartodoFachadaM = async () => {
     return await buscartodos();
 }
-/* 
+ 
 //verificacion de cedula y buscar ---------------------------------------
 const verificarCedulaExistenteM = async (cedula) => {
     try {
@@ -31,4 +31,4 @@ export const verificarCedulaExistenteMfachada = async (cedula) => {
 
 export const buscarMFachada = async (cedula) => {
     return await buscarM(cedula);
-} */
+} 

@@ -27,6 +27,8 @@
 
 <script>
 import { eliminarFachadaC } from "../helpers/clienteConsulta";
+import { buscarFachadaf, insertarfachadaF } from "../helpers/clienteFactura";
+import { consultarFachadaC3, actualizarFachada } from "../helpers/clienteConsulta";
 export default {
   props: {
     datos: {
@@ -34,15 +36,38 @@ export default {
       require: false,
     },
   },
+  data() {
+    return {};
+  },
   methods: {
     async eliminarConsulta(id) {
       // Lógica para eliminar la consulta con el ID correspondiente
       await eliminarFachadaC(id);
       location.reload();
     },
-    factura(id){
-      console.log("el id de la consulta es: "+id);
-    }
+    async factura(id) {
+      const dato = await buscarFachadaf(id);
+      if (dato.length !== 0) {
+        this.$emit("dateclick", dato);
+        console.log("se encontro el id: " + id);
+      } else {
+        const variable = await consultarFachadaC3(id);
+        console.log(variable);
+        const body = {
+          id: variable.id,
+          fechaFactura: variable.fechaConsulta,
+          detalleFactura: variable.motivo,
+          total: variable.serviciosMedicos.costo,
+        };
+        variable.factura = body;
+        console.log(body);
+        await insertarfachadaF(body);
+        console.log(variable);
+        await actualizarFachada(id,variable);
+        this.$emit("dateclick", body);
+        console.log("no se encontro el id: " + id);
+      }
+    },
   },
 };
 </script>

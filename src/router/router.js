@@ -36,6 +36,10 @@ const routes = [
         path: '/ServicioMedicos',
         component: () => import('../page/PaginServiciosMedicos')
     },
+    {
+        path: '/medicos/:cedula',
+        component: () => import('../page/PaginaMedico')
+    }
 ]
 
 const router = createRouter({ history: createWebHashHistory(), routes })

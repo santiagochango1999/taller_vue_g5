@@ -19,9 +19,11 @@
           />
         </p>
         <div class="buttoncontainer">
-          <button id="button1" @click="iniciarPaciente">Ingreso Paciente</button>
-<!--           <button id="button2" @click="iniciarMedico">Ingreso Medico</button>
- -->        </div>
+          <button id="button1" @click="iniciarPaciente">
+            Ingreso Paciente
+          </button>
+          <button id="button2" @click="iniciarMedico">Ingreso Medico</button>
+        </div>
         <button><router-link to="/registrar">Registrarse </router-link></button>
       </form>
     </div>
@@ -62,7 +64,7 @@ export default {
         alert("Ingrese datos en la cedula o la contraseña del paciente");
       }
     },
-    /* async iniciarMedico() {
+     async iniciarMedico() {
       if (this.Cedula && this.Contraseña) {
         const verifica = await verificarCedulaExistenteMfachada(this.Cedula);
         if (verifica) {
@@ -78,7 +80,7 @@ export default {
       } else {
         alert("Ingrese datos en la cedula o la contraseña del medico");
       }
-    }, */
+    }, 
   },
 };
 </script>
@@ -175,7 +177,7 @@ input:focus {
 
 button {
   width: 125px;
-  height: 50px;
+  height: 60px;
   margin: 10px 120px;
   font-size: 20px;
   position: relative;

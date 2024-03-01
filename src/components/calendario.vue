@@ -17,13 +17,24 @@ export default {
     activador: {
       required: false,
     },
-
+    activador2: "p",
   },
   watch: {
     activador: {
       handler(newVal, oldVal) {
         if (newVal !== oldVal) {
           this.activar(); // Llama al método cuando el valor es true
+        }
+      },
+      immediate: true, // Llama al handler inmediatamente al inicio si el valor es true
+    },
+    activador2: {
+      handler(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          console.log("calendario: "+newVal);
+          console.log(oldVal);
+
+          this.activar2(); // Llama al método cuando el valor es true
         }
       },
       immediate: true, // Llama al handler inmediatamente al inicio si el valor es true
@@ -68,6 +79,15 @@ export default {
     activar() {
       this.calendarOptions.events = {
         url: `http://localhost:8080/API/v1.0/Registro/consultas/filtro/${this.activador}`,
+        method: "GET",
+        failure: (error) => {
+          console.log("tenemos este error: ", error.message);
+        },
+      };
+    },
+    activar2() {
+      this.calendarOptions.events = {
+        url: `http://localhost:8080/API/v1.0/Registro/consultas/filtro2/${this.activador2}`,
         method: "GET",
         failure: (error) => {
           console.log("tenemos este error: ", error.message);

@@ -19,7 +19,12 @@
           <td>{{ dato.id }}</td>
           <td>{{ dato.nombre }}</td>
           <td>{{ dato.telefono }}</td>
-          <td  v-for="da in dato.medico" :key="da.id">{{convertir(dato.medico)}}</td>
+          <template v-if="dato.medico.length > 0">
+            <tr v-for="doctor in dato.medico" :key="doctor.id">
+              <td>{{ doctor.nombre }}</td>
+              <td>{{ doctor.apellido }}</td>
+            </tr>
+          </template>
         </tr>
       </table>
     </div>
@@ -28,7 +33,6 @@
 
 <script>
 import cabecera from "../components/cabezera.vue";
-import{listaFachada} from"../helpers/DaTra/listaSeryMed";
 import {
   consultarFachada,
   consultarUnoFachada,
@@ -47,10 +51,6 @@ export default {
       console.log("alo");
       this.datos = await consultarFachada();
     },
-    convertir(dato){
-      console.log("dato:"+dato);
-      return listaFachada(dato);
-    }
   },
 };
 </script>
