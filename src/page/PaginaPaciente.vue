@@ -15,8 +15,7 @@
     <calendarioVue
       :activador="NewEvent.medico"
       @dateclick="dateinfo"
-      v-if="!showModal && !showModalFactura "
-
+      v-if="!showModal && !showModalFactura"
     />
     <modals
       v-if="showModal"
@@ -25,7 +24,11 @@
       @closeModal="close"
       @saveApp="saveApp"
     />
-    <facturamodals v-if="showModalFactura" @closeModal="close" :form="facturadatos"/>
+    <facturamodals
+      v-if="showModalFactura"
+      @closeModal="close"
+      :form="facturadatos"
+    />
   </div>
 </template>
 
@@ -57,7 +60,7 @@ export default {
   },
   data() {
     return {
-      facturadatos:null,
+      facturadatos: null,
       activador: null,
       cedulaE: this.$route.params.id,
       datoConsulta: {
@@ -116,7 +119,7 @@ export default {
     },
     dateinfo1(dato) {
       console.log(dato);
-      this.facturadatos=dato;
+      this.facturadatos = dato;
       this.showModalFactura = true;
       /*       this.setModalOpen(arg);
        */

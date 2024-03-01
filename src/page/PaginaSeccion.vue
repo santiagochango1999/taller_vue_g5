@@ -53,6 +53,7 @@ export default {
         if (verifica) {
           const data = await buscarFachada(this.Cedula);
           if (this.Contraseña === data.contraseña) {
+            localStorage.setItem("cedula", this.Cedula);
             this.$router.push(`/pacientes/${this.Cedula}`);
           } else {
             alert("la contraseña es INCORRECTA");
@@ -64,12 +65,13 @@ export default {
         alert("Ingrese datos en la cedula o la contraseña del paciente");
       }
     },
-     async iniciarMedico() {
+    async iniciarMedico() {
       if (this.Cedula && this.Contraseña) {
         const verifica = await verificarCedulaExistenteMfachada(this.Cedula);
         if (verifica) {
           const data = await buscarMFachada(this.Cedula);
           if (this.Contraseña === data.contraseña) {
+            localStorage.setItem("cedula", this.Cedula);
             this.$router.push(`/medicos/${this.Cedula}`);
           } else {
             alert("la contraseña es INCORRECTA");
@@ -80,7 +82,7 @@ export default {
       } else {
         alert("Ingrese datos en la cedula o la contraseña del medico");
       }
-    }, 
+    },
   },
 };
 </script>

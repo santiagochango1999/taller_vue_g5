@@ -1,6 +1,7 @@
 <template>
 <!--   <PaginaPrincipal />
  -->  <router-view />
+ <button><router-link to="/"></router-link>Salir</button>
 </template>
 
 <script>

@@ -27,8 +27,15 @@
 
 <script>
 import { eliminarFachadaC } from "../helpers/clienteConsulta";
-import { buscarFachadaf, insertarfachadaF } from "../helpers/clienteFactura";
-import { consultarFachadaC3, actualizarFachada } from "../helpers/clienteConsulta";
+import {
+  buscarFachadaf,
+  insertarfachadaF,
+  eliminarFachadaF,
+} from "../helpers/clienteFactura";
+import {
+  consultarFachadaC3,
+  actualizarFachada,
+} from "../helpers/clienteConsulta";
 export default {
   props: {
     datos: {
@@ -43,6 +50,7 @@ export default {
     async eliminarConsulta(id) {
       // Lógica para eliminar la consulta con el ID correspondiente
       await eliminarFachadaC(id);
+      await eliminarFachadaF(id);
       location.reload();
     },
     async factura(id) {
@@ -63,7 +71,7 @@ export default {
         console.log(body);
         await insertarfachadaF(body);
         console.log(variable);
-        await actualizarFachada(id,variable);
+        await actualizarFachada(id, variable);
         this.$emit("dateclick", body);
         console.log("no se encontro el id: " + id);
       }

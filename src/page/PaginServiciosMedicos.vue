@@ -12,18 +12,17 @@
           <td>Id</td>
           <td>Nombre</td>
           <td>Costo</td>
-          <td>Selección</td>
         </tr>
 
         <tr v-for="dato in datos" :key="dato.id">
           <td>{{ dato.id }}</td>
           <td>{{ dato.nombre }}</td>
           <td>{{ dato.costo }}</td>
-          <td><button>Agendar</button></td>
         </tr>
       </table>
     </div>
   </div>
+   <button><router-link to="/"></router-link>Salir</button>
 </template>
 
 <script>

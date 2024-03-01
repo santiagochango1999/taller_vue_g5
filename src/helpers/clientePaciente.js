@@ -14,8 +14,12 @@ const verificarCedulaExistente = async (cedula) => {
 }
 
 const buscar = async (cedula) => {
+    try {
         const data = await axios.get(`http://localhost:8080/API/v1.0/Registro/pacientes/${cedula}`).then(r => r.data);
         return data
+    } catch (error) {
+        return console.log("EL error es: "+error);; // En caso de error, asumimos que la cédula no existe
+    }
 }
 
 export const verificarCedulaExistentefachada = async (cedula) => {

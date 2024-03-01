@@ -2,7 +2,8 @@
   <div class="containerOpcion">
       <router-link to="/">Inicio</router-link>
       <router-link to="/quienes-somos">Quines Somos</router-link>
-      <router-link to="/documentos">Documentos</router-link>
+      <router-link to="/Documentos">Documentos</router-link>
+     
   </div>
 </template>
 

@@ -39,6 +39,10 @@ const routes = [
     {
         path: '/medicos/:cedula',
         component: () => import('../page/PaginaMedico')
+    },
+    {
+        path: '/Documentos',
+        component: () => import('../page/PaginaDocumento')
     }
 ]
 

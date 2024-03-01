@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <cabecera />
-    <div class="consulta">
+    <!-- <div class="consulta">
       <button @click="consultar">Consultar</button>
       <input v-model="name" type="text" />
-    </div>
+    </div> -->
 
     <div class="tablah">
       <table>
@@ -14,7 +14,6 @@
           <td>Telefono</td>
           <td>Doctores</td>
         </tr>
-
         <tr v-for="dato in datos" :key="dato.id">
           <td>{{ dato.id }}</td>
           <td>{{ dato.nombre }}</td>
@@ -29,6 +28,7 @@
       </table>
     </div>
   </div>
+   <button><router-link to="/"></router-link>Salir</button>
 </template>
 
 <script>
@@ -52,6 +52,9 @@ export default {
       this.datos = await consultarFachada();
     },
   },
+  created(){
+    this.consultar();
+  }
 };
 </script>
 

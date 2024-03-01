@@ -1,26 +1,42 @@
 import axios from "axios";
 
 const consultar = async (id) => {
-    const data = axios.get(`http://localhost:8080/API/v1.0/Registro/consultas/otro/${id}`).then(r => r.data)
-    console.log("datos con consultsmos: " + data);
-    return data;
+    try {
+        const data = axios.get(`http://localhost:8080/API/v1.0/Registro/consultas/otro/${id}`).then(r => r.data)
+        console.log("datos con consultsmos: " + data);
+        return data;
+    } catch (error) {
+        return console.log("EL error es: " + error);; // En caso de error, asumimos que la cédula no existe
+    }
 
 }
 const consultar3 = async (id) => {
-    const data = axios.get(`http://localhost:8080/API/v1.0/Registro/consultas/${id}`).then(r => r.data)
-    console.log("datos con consultsmos: " + data);
-    return data;
+    try {
+        const data = axios.get(`http://localhost:8080/API/v1.0/Registro/consultas/${id}`).then(r => r.data)
+        console.log("datos con consultsmos: " + data);
+        return data;
+    } catch (error) {
+        return console.log("EL error es: " + error);; // En caso de error, asumimos que la cédula no existe
+    }
 }
 
 const consultar2 = async (id, cedula) => {
-    const data = axios.get(`http://localhost:8080/API/v1.0/Registro/consultas/otro2/${id}/${cedula}`).then(r => r.data)
-    console.log("datos con consultsmos: " + data);
-    return data;
+    try {
+        const data = axios.get(`http://localhost:8080/API/v1.0/Registro/consultas/otro2/${id}/${cedula}`).then(r => r.data)
+        console.log("datos con consultsmos: " + data);
+        return data;
+    } catch (error) {
+        return console.log("EL error es: " + error);; // En caso de error, asumimos que la cédula no existe
+    }
 
 }
 
 const guardar = async (body) => {
-    const data = axios.post("http://localhost:8080/API/v1.0/Registro/consultas", body).then(r => r.data)
+    try {
+        const data = axios.post("http://localhost:8080/API/v1.0/Registro/consultas", body).then(r => r.data)
+    } catch (error) {
+        return console.log("EL error es: " + error);; // En caso de error, asumimos que la cédula no existe
+    }
 }
 
 const verificar = async (fecha, idMedico) => {
