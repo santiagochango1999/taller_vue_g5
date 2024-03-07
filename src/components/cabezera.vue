@@ -42,11 +42,11 @@ export default {
   box-shadow: 15px 10px 5px 5px #00000033;
 }
 
-.container2 {
-  display: flex;
-  justify-content: center;
-  padding-top: 30px;
-}
+  .container2 {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+  }
 
 img {
   display: flex;
