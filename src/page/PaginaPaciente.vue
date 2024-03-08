@@ -24,11 +24,11 @@
       @closeModal="close"
       @saveApp="saveApp"
     />
-    <facturamodals
-      v-if="showModalFactura"
-      @closeModal="close"
-      :form="facturadatos"
-    />
+      <facturamodals
+        v-if="showModalFactura"
+        @closeModal="close"
+        :form="facturadatos"
+      />
   </div>
 </template>
 
@@ -60,7 +60,12 @@ export default {
   },
   data() {
     return {
-      facturadatos: null,
+      facturadatos: {
+        dato:null,
+        cliente:null,
+        datosconsultas:null,
+        requerid: false,
+      },
       activador: null,
       cedulaE: this.$route.params.id,
       datoConsulta: {
@@ -119,7 +124,9 @@ export default {
     },
     dateinfo1(dato) {
       console.log(dato);
-      this.facturadatos = dato;
+      this.facturadatos.dato = dato;
+      this.facturadatos.cliente=this.datoPaciente;
+      this.facturadatos.datosconsultas=this.datoConsulta.find(item => item.id === dato.id);
       this.showModalFactura = true;
       /*       this.setModalOpen(arg);
        */

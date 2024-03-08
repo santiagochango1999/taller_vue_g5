@@ -43,6 +43,10 @@ const routes = [
     {
         path: '/Documentos',
         component: () => import('../page/PaginaDocumento')
+    },
+    {
+        path: '/Pago',
+        component: () => import('../page/PaginaPago'),
     }
 ]
 
